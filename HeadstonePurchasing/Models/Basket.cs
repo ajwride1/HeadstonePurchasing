@@ -13,9 +13,6 @@ namespace HeadstonePurchasing.Models
         {
             ID = 1;
             _Products = new List<PL.Product>();
-
-            Discounts currentDiscounts = Get.Discounts();
-            _CurrentOffers = currentDiscounts.SpecialOffers;
         }
 
         public void AddProductToBasket(PL.Product product)
@@ -33,8 +30,50 @@ namespace HeadstonePurchasing.Models
         private void _CalculateTotals()
         {
             _Total = Products.Sum(p => p.PricePerUnit);
-            _Discounts = Products.Sum(p => p.PricePerUnit * p.Discount);
+            _CalculateDiscounts();
             _TotalAfterDiscounts = Total - Discounts;
+        }
+
+        private void _CalculateDiscounts()
+        {
+            _Discounts = Products.Sum(p => p.PricePerUnit * p.Discount);
+            _CheckCurrentOffers();
+        }
+
+        private void _CheckCurrentOffers()
+        {
+            _GetLatestOffers();
+
+            foreach (SpecialOffer currentOffer in _CurrentOffers)
+            {
+                bool allOfferProductsInBasket = true;
+
+                foreach (string currentOfferProduct in currentOffer.Products)
+                {
+                    if (!Products.Any(p => p.Name == currentOfferProduct))
+                        allOfferProductsInBasket = false;
+                }
+
+                if (allOfferProductsInBasket)
+                {
+                    foreach (string discountProduct in currentOffer.Discount.Products)
+                    {
+                        if (Products.Any(p => p.Name == discountProduct))
+                        {
+                            _Discounts += Products
+                                              .First(p => p.Name == discountProduct)
+                                              .PricePerUnit *
+                                          currentOffer.Discount.Percentage;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void _GetLatestOffers()
+        {
+            Discounts currentDiscounts = Get.Discounts();
+            _CurrentOffers = currentDiscounts.SpecialOffers;
         }
     }
 }

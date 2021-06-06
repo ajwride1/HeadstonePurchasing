@@ -34,7 +34,79 @@ namespace HeadstonePurchasing.Test.Models
         };
 
         [TestMethod]
-        public void CalculateTotals()
+        public void CalculateTotalsNoSpecials()
+        {
+            HeadstonePurchasing.Models.Basket newBasket = new HeadstonePurchasing.Models.Basket();
+            Console.WriteLine("=============================================");
+            newBasket.AddProductToBasket(_Test1);
+            Helper.PrintObject(newBasket);
+            Assert.IsTrue(newBasket.Total == 1);
+            Assert.IsTrue(newBasket.Discounts == 0.5);
+            Assert.IsTrue(newBasket.TotalAfterDiscounts == 0.5);
+            Console.WriteLine("=============================================");
+            newBasket.RemoveProductFromBasket(_Test1);
+            Helper.PrintObject(newBasket);
+            Assert.IsTrue(newBasket.Total == 0);
+            Assert.IsTrue(newBasket.Discounts == 0);
+            Assert.IsTrue(newBasket.TotalAfterDiscounts == 0);
+            Console.WriteLine("=============================================");
+            newBasket.AddProductToBasket(_Test1);
+            Helper.PrintObject(newBasket);
+            Assert.IsTrue(newBasket.Total == 1);
+            Assert.IsTrue(newBasket.Discounts == 0.5);
+            Assert.IsTrue(newBasket.TotalAfterDiscounts == 0.5);
+            Console.WriteLine("=============================================");
+            newBasket.AddProductToBasket(_Test1);
+            Helper.PrintObject(newBasket);
+            Assert.IsTrue(newBasket.Total == 2);
+            Assert.IsTrue(newBasket.Discounts == 1);
+            Assert.IsTrue(newBasket.TotalAfterDiscounts == 1);
+            Console.WriteLine("=============================================");
+            newBasket.RemoveProductFromBasket(_Test1);
+            Helper.PrintObject(newBasket);
+            Assert.IsTrue(newBasket.Total == 1);
+            Assert.IsTrue(newBasket.Discounts == 0.5);
+            Assert.IsTrue(newBasket.TotalAfterDiscounts == 0.5);
+            Console.WriteLine("=============================================");
+            newBasket.AddProductToBasket(_Test2);
+            Helper.PrintObject(newBasket);
+            Assert.IsTrue(newBasket.Total == 2);
+            Assert.IsTrue(newBasket.Discounts == 0.5);
+            Assert.IsTrue(newBasket.TotalAfterDiscounts == 1.5);
+            Console.WriteLine("=============================================");
+            newBasket.AddProductToBasket(_Test2);
+            Helper.PrintObject(newBasket);
+            Assert.IsTrue(newBasket.Total == 3);
+            Assert.IsTrue(newBasket.Discounts == 0.5);
+            Assert.IsTrue(newBasket.TotalAfterDiscounts == 2.5);
+            Console.WriteLine("=============================================");
+            newBasket.RemoveProductFromBasket(_Test2);
+            Helper.PrintObject(newBasket);
+            Assert.IsTrue(newBasket.Total == 2);
+            Assert.IsTrue(newBasket.Discounts == 0.5);
+            Assert.IsTrue(newBasket.TotalAfterDiscounts == 1.5);
+            Console.WriteLine("=============================================");
+            newBasket.AddProductToBasket(_Test3);
+            Helper.PrintObject(newBasket);
+            Assert.IsTrue(newBasket.Total == 3);
+            Assert.IsTrue(newBasket.Discounts == 0.6);
+            Assert.IsTrue(newBasket.TotalAfterDiscounts == 2.4);
+            Console.WriteLine("=============================================");
+            newBasket.AddProductToBasket(_Test3);
+            Helper.PrintObject(newBasket);
+            Assert.IsTrue(newBasket.Total == 4);
+            Assert.IsTrue(newBasket.Discounts == 0.7);
+            Assert.IsTrue(newBasket.TotalAfterDiscounts == 3.3);
+            Console.WriteLine("=============================================");
+            newBasket.RemoveProductFromBasket(_Test3);
+            Helper.PrintObject(newBasket);
+            Assert.IsTrue(newBasket.Total == 3);
+            Assert.IsTrue(newBasket.Discounts == 0.6);
+            Assert.IsTrue(newBasket.TotalAfterDiscounts == 2.4);
+        }
+
+        [TestMethod]
+        public void CalculateTotalsWithSpecials()
         {
             HeadstonePurchasing.Models.Basket newBasket = new HeadstonePurchasing.Models.Basket();
             Console.WriteLine("=============================================");
