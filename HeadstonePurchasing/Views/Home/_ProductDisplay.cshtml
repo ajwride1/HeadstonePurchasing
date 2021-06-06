@@ -1,0 +1,22 @@
+﻿@using System.Globalization
+@model List<HeadstonePurchasing.Models.Product>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
+    @foreach (HeadstonePurchasing.Models.Product product in Model)
+    {
+        <tr>
+            <td>@product.Name</td>
+            <td>@product.PricePerUnit.ToString("C2", new CultureInfo("en-GB"))</td>
+            <td>
+                <button class="btn btn-success" id="add-to-basket-@product.ID">
+                    Add to basket
+                </button>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,16 @@
+{
+  "SpecialOffers": [
+    {
+      "Products": [
+        "Headstone",
+        "Base"
+      ],
+      "Discount": {
+        "Products": [
+          "Dowel"
+        ],
+        "Percentage": 0.5 
+      } 
+    }
+  ]
+}
