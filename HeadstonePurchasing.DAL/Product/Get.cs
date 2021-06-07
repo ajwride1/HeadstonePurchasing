@@ -11,8 +11,8 @@ namespace HeadstonePurchasing.DAL.Product
 {
     public static class Get
     {
-        private const string _ConfigFilePath = @"Product\config.json";
-        private const string _DiscountsConfigFilePath = @"Product\discounts.json";
+        private static string _ConfigFilePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\Product\config.json";
+        private static string _DiscountsConfigFilePath = $@"{AppDomain.CurrentDomain.BaseDirectory}\Product\discounts.json";
 
         public static DTO.Detail Detail(int id)
         {
